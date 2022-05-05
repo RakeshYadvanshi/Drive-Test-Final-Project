@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../layouts/header'); -%>
+    <link rel="stylesheet" href="/assets/datetimepicker/jquery.datetimepicker.min.css">
+</head>
+
+<body>
+    <%- include('../layouts/nav-header'); -%>
+    <!-- Main Content-->
+    <main class="container">
+        <section style="margin-bottom: 50px;">
+            <h2>Apply for G Test</h2>
+        </section>
+           <% if (data.HasTestResult){ %>
+           <div class="col col-12">
+               <div class="alert alert-success alert-dismissible show" role="alert">
+                   Your Examination result is ready <a class="btn btn-primary text-uppercase"
+                       href="<%= data.ResultLink %>">View Result</a>
+               </div>
+           </div>
+           <% } %>
+
+           <% if (data.AppointmentStatus == 'No Show' ){ %>
+           <div class="col col-12">
+               <div class="alert alert-warning alert-dismissible show" role="alert">
+                   You missed the appointment
+               </div>
+           </div>
+           <% } %>
+        <% if(status == 'UserFound'){ %>
+        <section>
+            <form class="row justify-content-md-center" id="g-form">
+                <div class="col col-md-6">
+                    <h4>Personal Detail</h4>
+                    <div class="form-floating">
+                        <input class="form-control" id="first-name" type="text" placeholder="Enter your first name..."
+                            disabled value="<%= data.FirstName %>" />
+                        <label for="first-name">First Name</label>
+                        <div class="invalid-feedback">A first name is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="last-name" type="text" placeholder="Enter your last name..."
+                            disabled value="<%= data.LastName %>" />
+                        <label for="last-name">Last Name</label>
+                        <div class="invalid-feedback">A Last name is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="dob" name="DateOfBirth" type="date"
+                            placeholder="Enter your date of birth..." required value="<%= data.DateOfBirth %>"
+                            disabled />
+                        <label for="dob">Date of Birth</label>
+                    </div>
+                    <br />
+
+                </div>
+                <div class="col col-md-6">
+                    <h4>User Documents</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <img src="<%= data.UserDocument.UserImage %>" width="100" height="100"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">User Image</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="<%= data.UserDocument.UserIdentity %>" width="100" height="100"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">Identity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-floating">
+                        <h4>Select Slot</h4>
+                        <input class="form-control" id="slot" value="<%= (new Date()).toISOString().split("T")[0]%>"
+                            type="text" />
+
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" type="text" disabled id="user-selected-datetime"
+                            value="<%= data.Slot %>" />
+                        <input class="form-control" type="hidden" id="user-selected-slot" name="Slot" />
+                    </div>
+
+                </div>
+                <div class="col col-md-6">
+                    <h4>Address Detail</h4>
+                    <div class="form-floating">
+                        <input class="form-control" id="house-number" type="text"
+                            placeholder="Enter your House Number..." required value="<%= data.Address.HouseNo %>"
+                            name="Address.HouseNo" />
+                        <label for="house-number">House Number</label>
+                        <div class="invalid-feedback">House Number is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="street" required type="text" placeholder="Enter your Street"
+                            value="<%= data.Address.Street %>" name="Address.Street" />
+                        <label for="street">Street</label>
+                        <div class="invalid-feedback">Street is required.</div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" id="city" required type="text" placeholder="Enter your city"
+                            value="<%= data.Address.City %>" name="Address.City" />
+                        <label for="city">City</label>
+                        <div class="invalid-feedback">City is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="province" required type="text" placeholder="Enter your province"
+                            value="<%= data.Address.Province %>" name="Address.Province" />
+                        <label for="province">Province</label>
+                        <div class="invalid-feedback">Province is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="postal-code" required type="text"
+                            placeholder="Enter your Postal code" value="<%= data.Address.PostalCode %>"
+                            name="Address.PostalCode" />
+                        <label for="postal-code">Postal code</label>
+                        <div class="invalid-feedback">Postal code is required.</div>
+                    </div>
+                    <br />
+
+
+                </div>
+                <div class="col col-md-6">
+                    <h4>Car Detail</h4>
+                    <div class="form-floating">
+                        <input class="form-control" id="make" required type="text" placeholder="Enter your make..."
+                            value="<%= data.CarDetail.Make %>" name="CarDetail.Make" />
+                        <label for="make">Make</label>
+                        <div class="invalid-feedback">Make is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="model" required type="text" placeholder="Enter your Model"
+                            value="<%= data.CarDetail.Model %>" name="CarDetail.Model" />
+                        <label for="model">Model</label>
+                        <div class="invalid-feedback">Model is required.</div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" id="year" type="number" required placeholder="Enter your Year"
+                            value="<%= data.CarDetail.Year %>" name="CarDetail.Year" />
+                        <label for="year">Year</label>
+                        <div class="invalid-feedback">Year is required.</div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="plat-number" required type="text"
+                            placeholder="Enter your Plat number" value="<%= data.CarDetail.PlatNumber %>"
+                            name="CarDetail.PlatNumber" />
+                        <label for="plat-number">Plat number</label>
+                        <div class="invalid-feedback">Plat number is required.</div>
+                    </div>
+                    <br />
+
+
+                    <button class="btn btn-primary text-uppercase" id="g2_submit" type="submit">Apply For G</button>
+
+                </div>
+            </form>
+
+        </section>
+        <% } if(status == 'UserNotFound'){ %>
+        <section>
+            <div class="alert alert-warning" role="alert">
+                No User Found
+            </div>
+        </section>
+        <% } %>
+    </main>
+
+    <%- include('../layouts/footer'); -%>
+    <%- include('../layouts/common-scripts'); -%>
+    <script src="/assets/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="/js/g-test.js"></script>
+
+</body>
+
+</html>

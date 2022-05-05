@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../layouts/header'); -%>
+    <link rel="stylesheet" href="/assets/datetimepicker/jquery.datetimepicker.min.css">
+</head>
+
+<body>
+    <%- include('../layouts/nav-header'); -%>
+    <!-- Main Content-->
+    <main class="container">
+        <h2>Appointments</h2>
+
+
+        <div class="row">
+             <div class="col-2">
+                 Date
+             </div>
+            <div class="col-2">
+                <input class="form-control" id="Date" type="text"
+                    value="<%= (new Date()).toISOString().split("T")[0]%>" />
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col">
+                <button class="btn btn-success" id="filterAppointments" type="button">Search</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                Examnee Name
+                            </td>
+                            <td>
+                                Slot
+                            </td>
+                            <td>
+                                Exam Name
+                            </td>
+                            <td>
+                                Exam Status
+                            </td>
+                             <td>
+                                 Action
+                             </td>
+                        </tr>
+                    </thead>
+                    <tbody id="apointment-list">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+    <%- include('../layouts/footer'); -%>
+    <%- include('../layouts/common-scripts'); -%>
+    <script src="/assets/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="/js/examiner.js"></script>
+</body>
+
+</html>

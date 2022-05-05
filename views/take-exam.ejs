@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../layouts/header'); -%>
+    <link rel="stylesheet" href="/assets/datetimepicker/jquery.datetimepicker.min.css">
+</head>
+
+<body>
+    <%- include('../layouts/nav-header'); -%>
+    <!-- Main Content-->
+    <main class="container">
+        <h2>Exam Detail</h2>
+
+        <div class="row">
+            <div class="col col-md-6">
+                <h4>Examee Detail</h4>
+                <div class="form-floating">
+                    <input class="form-control" id="first-name" type="text" placeholder="Enter your first name..."
+                        disabled value="<%= data.examinee.FirstName %>" />
+                    <label for="first-name">First Name</label>
+
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="last-name" type="text" placeholder="Enter your last name..."
+                        disabled value="<%= data.examinee.LastName %>" />
+                    <label for="last-name">Last Name</label>
+
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="dob" name="DateOfBirth" type="date"
+                        placeholder="Enter your date of birth..." required value="<%= data.examinee.DateOfBirth %>"
+                        disabled />
+                    <label for="dob">Date of Birth</label>
+                </div>
+                <br />
+
+            </div>
+            <div class="col col-md-6">
+                <h4>Exam Detail</h4>
+                <div class="form-floating">
+                    <input class="form-control" id="appointment-type" type="text" placeholder="Enter your first name..."
+                        disabled value="<%= data.appointment.AppointmentType %>" />
+                    <label for="appointment-type">Exam Name</label>
+
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="selected-slot" type="text" placeholder="Enter your last name..."
+                        disabled value="<%= data.appointment.Time %>" />
+                    <label for="slot">Slot</label>
+
+                </div>
+                <br />
+
+            </div>
+        </div>
+        <form id="test-observation" action="/save-test-observations" method="post">
+            <input type="hidden" id="ExamineeId" name="ExamineeId" value="<%= data.examinee._id %>">
+            <input type="hidden" id="AppointmentId" name="AppointmentId" value="<%= data.appointment._id %>">
+            <div class="row">
+                <h4>Test Oberservations</h4>
+                <div class="col col-md-6">
+                    <h5>Turning Skills</h5>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="LeftTurn" name="LeftTurn" value="1"
+                            <%= data.observation.LeftTurn?'checked':'' %>>
+                        <label class="form-check-label" for="LeftTurn">Left Turn</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="RightTurn" name="RightTurn" value="1"
+                            <%= data.observation.RightTurn?'checked':'' %>>
+                        <label class="form-check-label" for="RightTurn">Right Turn</label>
+                    </div>
+
+
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="ThreePointTurn" name="ThreePointTurn"
+                            value="1" <%= data.observation.ThreePointTurn?'checked':'' %>>
+                        <label class="form-check-label" for="ThreePointTurn">Three Point Turn</label>
+                    </div>
+                    <br />
+
+                </div>
+                <div class="col col-md-6">
+                    <h5> Parking Skills</h5>
+
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="UpHillParking" name="UpHillParking"
+                            value="1" <%= data.observation.UpHillParking?'checked':'' %>>
+                        <label class="form-check-label" for="UpHillParking">Up Hill Parking</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="DownHillParking" name="DownHillParking"
+                            value="1" <%= data.observation.DownHillParking?'checked':'' %>>
+                        <label class="form-check-label" for="DownHillParking">Down Hill Parking</label>
+                    </div>
+
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="ParellelParking" name="ParellelParking"
+                            value="1" <%= data.observation.ParellelParking?'checked':'' %>>
+                        <label class="form-check-label" for="ParellelParking">Parellel Parking</label>
+                    </div>
+                    <br />
+                </div>
+
+                <div class="col col-md-6">
+                    <h5>Observation Skills</h5>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="CheckingBackMirror"
+                            name="CheckingBackMirror" value="1" <%= data.observation.CheckingBackMirror?'checked':'' %>>
+                        <label class="form-check-label" for="CheckingBackMirror">Checking Back Mirror</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" name="SpeedLimit" role="switch" id="SpeedLimit"
+                            value="1" <%= data.observation.SpeedLimit?'checked':'' %>>
+                        <label class="form-check-label" for="SpeedLimit">Speed Limit</label>
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-md-6">
+                    <h4>Examnee Result</h4>
+                    <div class="form-check  form-check-inline">
+                        <input type="radio" name="OverAllResult" class="form-check-input" id="OverAllResultPass"
+                            value="P" <%= data.observation.OverAllResult == 'P' ?'checked':'' %>>
+                        <label class="form-check-label" for="OverAllResultPass">Pass</label>
+                    </div>
+                    <div class="form-check  form-check-inline">
+                        <input type="radio" name="OverAllResult" class="form-check-input" id="OverAllResultFail"
+                            value="F" <%= data.observation.OverAllResult == 'F' ?'checked':'' %>>
+                        <label class="form-check-label" for="OverAllResultFail">Fail</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Comment" class="form-label">Comment</label>
+                        <textarea class="form-control" id="Comment" rows="5"><%= data.observation.Comment %></textarea>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-6" style="float: right;">
+                    <button class="btn btn-success" id="Savefeedback" type="submit"
+                        <%= data.appointment.AppointmentStatus == 'Pending' || data.appointment.AppointmentStatus == 'Exam Started' ?'':'disabled' %>>Save
+                        Feedback</button>
+
+                    <button class="btn btn-success" id="ExamneeNoShow"
+                        title="It will not update any observation details" type="submit"
+                        <%= data.appointment.AppointmentStatus == 'Pending' || data.appointment.AppointmentStatus == 'Exam Started'  ?'':'disabled' %>>Examnee
+                        Didn't
+                        Show</button>
+                </div>
+
+
+            </div>
+        </form>
+    </main>
+    <%- include('../layouts/footer'); -%>
+    <%- include('../layouts/common-scripts'); -%>
+    <script src="/assets/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="/js/take-exam.js"></script>
+</body>
+
+</html>

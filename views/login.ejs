@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../layouts/header'); -%>
+</head>
+
+<body>
+    <%- include('../layouts/nav-header'); -%>
+    <!-- Main Content-->
+    <main class="container">
+        <div class="row">
+            <div class="col">
+                <form id="register-form" method="post" action="/register">
+                    <h2>Register</h2>
+                    <%    if(status == 'UserCreated') {  %>
+                    <div class="col col-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            User Created Successfully !! Login Now
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <% }%>
+
+                    <%    if(status == 'ServerSideError' || status == 'validationError') {  %>
+                    <div class="col col-12">
+                        <div class="alert <%=status == 'validationError'?'alert-warning':'alert-danger'  %> alert-dismissible fade show"
+                            role="alert">
+                          Valdiation Summary
+                            <ul>
+                                <% for(let error of errors) {%>
+                                <li>
+                                    <%=error.message;  %>
+                                </li>
+                                <% };  %>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <% }%>
+                      <div class="form-floating">
+                          <input class="form-control" id="register-email" name="Email" type="email"
+                              placeholder="Enter your Email..." />
+                          <label for="register-email">Email</label>
+                      </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="register-user-name" name="UserName" type="text"
+                            placeholder="Enter your user name..." />
+                        <label for="register-name">User Name</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <select class="form-control" name="UserType" id="register-user-type">
+                            <option value="Driver">Driver</option>
+                            <option value="Examiner">Examiner</option>
+                            <option value="Admin">Administrator</option> 
+                        </select>
+                        <label for="register-user-type">User Type</label>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="register-password" name="Password" type="password"
+                            placeholder="Enter your password..." required />
+                        <label for="register-password">Password</label>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control" name="ConfirmPassword" required id="register-confirm-password"
+                            type="password" placeholder="Enter your confirm password..." />
+                        <label for="register-password">Confirm Password</label>
+
+                    </div>
+                    <br />
+
+
+                    <!-- Submit Button-->
+                    <button class="btn btn-primary text-uppercase" id="register-submit" type="submit">Register</button>
+                </form>
+            </div>
+            <div class="col">
+                <form id="login-form" action="/login" method="post">
+                    <h2>Login</h2>
+                    <%    if(status == 'UserNotFound') {  %>
+                    <div class="col col-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            User does not exists. Try Signup!!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <% }%>
+                    <%    if(status == 'InvalidCredentials') {  %>
+                    <div class="col col-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            User name or password is invalid
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <% }%>
+                    <div class="form-floating">
+                        <input class="form-control" id="email" name="LoginUserName" type="text"
+                            placeholder="Enter your User Name..." />
+                        <label for="LoginUserName">User Name</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" id="login-password" name="LoginPassword" type="password"
+                            placeholder="Enter your email..." />
+                        <label for="login-password">Password</label>
+                        <div class="invalid-feedback">Password is required.</div>
+                    </div>
+                    <br />
+
+                    <button class="btn btn-primary text-uppercase" id="login-submit" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <%- include('../layouts/footer'); -%>
+    <%- include('../layouts/common-scripts'); -%>
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
